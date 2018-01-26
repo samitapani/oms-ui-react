@@ -35,33 +35,31 @@ export default class Item extends Component {
   render() {
     return (
       <div>
-        <div className="row">
-          <span>{this.props.item.product.name}</span>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
+        <span>{this.props.item.product.name}</span>
+        <div className="input-group mb-3">
+          <div className="input-group-prepend">
               <span className="input-group-text"
                     onClick={this.decCount}
               >
                 <FontAwesomeIcon icon={minus}/>
               </span>
-            </div>
-            <input type="number" className="form-control"
-                   value={this.state.count}
-                   onChange={this.countChange}/>
+          </div>
+          <input type="number" className="form-control"
+                 value={this.state.count}
+                 onChange={this.countChange}/>
 
-            <div className="input-group-text"
-                 onClick={this.incCount}
-            >
-              <FontAwesomeIcon icon={plus}/>
-            </div>
+          <div className="input-group-text"
+               onClick={this.incCount}
+          >
+            <FontAwesomeIcon icon={plus}/>
+          </div>
 
-            <input type="text"
-                   className="form-control "
-                   value={this.props.item.product.price}
-                   disabled/>
-            <div className="input-group-append">
-              <span className="input-group-text"><FontAwesomeIcon icon={euro}/></span>
-            </div>
+          <input type="text"
+                 className="form-control "
+                 value={this.props.item.product.price}
+                 disabled/>
+          <div className="input-group-append">
+            <span className="input-group-text"><FontAwesomeIcon icon={euro}/></span>
           </div>
         </div>
       </div>
