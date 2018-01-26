@@ -48,13 +48,11 @@ export default class Item extends Component {
             <input type="number" className="form-control"
                    value={this.state.count}
                    onChange={this.countChange}/>
-            <div className="input-group-text">
 
-              <div className="button"
-                   onClick={this.incCount}
-              >
-                <FontAwesomeIcon icon={plus}/>
-              </div>
+            <div className="input-group-text"
+                 onClick={this.incCount}
+            >
+              <FontAwesomeIcon icon={plus}/>
             </div>
 
             <input type="text"
