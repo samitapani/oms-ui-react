@@ -13,7 +13,7 @@ export default class Order extends Component {
 
             <h4 className='card-title'>{this.props.order.name}</h4>
 
-            <ItemList key={this.props.order.orderItemList.id} items={this.props.order.orderItemList}/>
+            <ItemList items={this.props.order.orderItemList}/>
 
             <div className='card-footer'>
               <small className='text-muted'> {date} </small>
