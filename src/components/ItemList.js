@@ -8,13 +8,12 @@ export default class OrderItemList extends Component {
   }
   render() {
     const items = (
-      <div>
+      <div className="card-text">
         {this.props.items.map((item) =>
           <Item key={item.id} item={item}/>
         )}
       </div>
     )
-
     return (
       <div>
         {items}
