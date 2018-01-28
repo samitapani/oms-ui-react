@@ -5,20 +5,49 @@ import logo from '../logo.svg';
 export default class Order extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      order: props.order,
+      nextOrderId: props.nextOrderId,
+      nextOrderId: 1000
+    }
+    this.addItem = this.addItem.bind(this);
+
+  }
+
+  addItem(event) {
+    console.log(event)
+    const state = this.state;
+    let nextOrderId = parseInt(this.state.nextOrderId)
+    nextOrderId++;
+    state.order.orderItemList.push(
+      {
+        id: nextOrderId, count: 0,
+        product: {
+          "id": 2,
+          "name": "matoja",
+          "price": 29.9
+        }
+      }
+
+
+    )
+
+    this.setState(state);
   }
 
   render() {
 
-    const date = new Date(this.props.order.creation).toString()
+    const date = new Date(this.state.order.creation).toString()
+    //console.log(this.props.allProducts[2])
 
     return (
       <div className='col-sm-12 col-md-6 col-lg-6'>
         <div className='card p-2'>
-          <img className='card-img-top' src={logo} alt={this.props.order.name}/>
+          <img className='card-img-top' src={logo} alt={this.state.order.name}/>
           <div className='card-block'>
-            <h4 className='card-title'>{this.props.order.name}</h4>
+            <h4 className='card-title'>{this.state.order.name}</h4>
 
-            <ItemList items={this.props.order.orderItemList}/>
+            <ItemList items={this.state.order.orderItemList} allProducts={this.props.allProducts} addItem={this.addItem}/>
 
             <div className='card-footer mt-2'>
               <small className='text-muted'> {date} </small>
