@@ -93,13 +93,13 @@ class App extends Component {
   async fetchData() {
     await axios.all([
         axios.get('http://localhost:8090/orders/list-paged?page=0&size=100'),
-        axios.get('http://localhost:8090/products/list')
+        axios.get('http://localhost:8090/products/list-paged?page=0&size=100')
       ])
-      .then(axios.spread((ordersPaged, products) => {
+      .then(axios.spread((ordersPaged, productsPaged) => {
         this.setState(
           {
             orders: ordersPaged.data.content,
-            allProducts: products.data,
+            allProducts: productsPaged.data.content,
             id:1000
           }
         )
