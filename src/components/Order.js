@@ -8,19 +8,17 @@ export default class Order extends Component {
     super(props);
     this.state = {
       order: props.order,
-      itemId: props.itemId,
-      itemId: 1000 // debug
+      itemId: 1
     }
     this.addItem = this.addItem.bind(this);
   }
 
   addItem(event, item) {
     const state = this.state;
-    let nextOrderId = parseInt(this.state.itemId)
-    nextOrderId++;
+    state.itemId += 1;
     state.order.orderItemList.push(
       {
-        id: nextOrderId, count: 1,
+        id: state.itemId, count: 1,
         product: item
       }
     )
