@@ -3,6 +3,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import plus from '@fortawesome/fontawesome-free-solid/faPlus'
 import minus from '@fortawesome/fontawesome-free-solid/faMinus'
 import euro from '@fortawesome/fontawesome-free-solid/faEuroSign'
+import { InputGroup } from "reactstrap";
+
 
 export default class Item extends Component {
 
@@ -36,21 +38,17 @@ export default class Item extends Component {
     return (
       <div>
         <span>{this.props.item.product.name}</span>
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-              <span className="input-group-text"
-                    onClick={this.decCount}
-              >
-                <FontAwesomeIcon icon={minus}/>
-              </span>
+        <InputGroup className="input-group mb-3">
+
+          <div className="input-group-text" onClick={this.decCount} >
+            <FontAwesomeIcon icon={minus}/>
           </div>
+
           <input type="number" className="form-control"
                  value={this.state.count}
                  onChange={this.countChange}/>
 
-          <div className="input-group-text"
-               onClick={this.incCount}
-          >
+          <div className="input-group-text" onClick={this.incCount} >
             <FontAwesomeIcon icon={plus}/>
           </div>
 
@@ -61,7 +59,7 @@ export default class Item extends Component {
           <div className="input-group-append">
             <span className="input-group-text"><FontAwesomeIcon icon={euro}/></span>
           </div>
-        </div>
+        </InputGroup>
       </div>
     )
   }
