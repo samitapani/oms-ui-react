@@ -8,7 +8,7 @@ import {InputGroup} from "reactstrap";
 
 export default class Item extends Component {
 
-  constructor(props) {
+  constructor(props){
     super(props)
     let count = props.item.count;
     this.state = {
@@ -21,7 +21,11 @@ export default class Item extends Component {
   }
 
   countChange(event) {
-    this.setState({count: parseInt(event.target.value)})
+    const count = parseInt(event.target.value);
+    console.log(event)
+    this.setState({count: count})
+
+    this.props.changeItemCount(this.props.orderItemIndex, count)
   }
 
   incCount(event) {

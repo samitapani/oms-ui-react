@@ -4,7 +4,7 @@ import Order from './components/Order.js'
 import axios from 'axios';
 import {Button, CardDeck, Container} from "reactstrap";
 
-const orderData = require('./static/sample-data')
+//const orderData = require('./static/sample-data')
 
 class App extends Component {
   constructor(props) {
@@ -35,17 +35,12 @@ class App extends Component {
       <Container>
         <div className='m-3'>
           <Button className='btn active mr-3' onClick={(event) => this.addOrder(event)}>Add order</Button>
-          <Button className='btn active mr-3' onClick={(event) => this.saveOrders(event)}>Save orders</Button>
         </div>
         <CardDeck>
           {orders}
         </CardDeck>
       </Container>
     )
-  }
-
-  saveOrders(event) {
-    console.log(this.state.orders);
   }
 
   addOrder(event) {
@@ -59,6 +54,7 @@ class App extends Component {
     this.setState(state)
   }
 
+  /*
   async componentDidMount() {
     const allProducts = [
       {
@@ -88,17 +84,28 @@ class App extends Component {
       }
     )
   }
+  */
+
+  componentDidMount() {
+    this.fetchData()
+  }
 
   async fetchData() {
-    await axios.get('http://localhost:8090/findPaged?name=Fi&page=0&size=10')
-      .then((data) => {
-        this.setState({orders: data.data.content})
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    await axios.all([
+        axios.get('http://localhost:8090/orders/list-paged?page=0&size=100'),
+        axios.get('http://localhost:8090/products/list')
+      ])
+      .then(axios.spread((ordersPaged, products) => {
+        this.setState(
+          {
+            orders: ordersPaged.data.content,
+            allProducts: products.data,
+            id:1000
+          }
+        )
+      }))
+      .catch(error => console.log(error));
   }
 
 }
-
 export default App

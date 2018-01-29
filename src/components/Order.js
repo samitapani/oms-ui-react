@@ -2,35 +2,44 @@ import React, {Component} from 'react';
 import ItemList from './ItemList.js'
 import logo from '../logo.svg';
 import {
-  Button, Card, CardBlock, CardFooter, CardImg, CardTitle, Input, Label, InputGroup,
-  InputGroupAddon
+  Button, Card, CardBlock, CardFooter, CardImg, CardTitle, Input, Label, InputGroup
 } from 'reactstrap'
+import axios from 'axios'
 
 export default class Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
       order: props.order,
-      itemId: 1,
       editMode: false,
     }
     this.addItem = this.addItem.bind(this);
     this.onOrderNameChange = this.onOrderNameChange.bind(this);
     this.changeEditMode = this.changeEditMode.bind(this);
+    this.changeItemCount = this.changeItemCount.bind(this);
+  }
+
+  changeItemCount(orderItemIndex, count) {
+    const state = this.state
+    state.order.orderItemList[orderItemIndex].count = count
+    this.setState(state);
   }
 
   changeEditMode(event) {
     const state = this.state;
     state.editMode = !this.state.editMode
+    axios.post(
+      'http://localhost:8090/orders/save',
+      this.state.order
+    )
     this.setState(state)
   }
 
   addItem(event, item) {
     const state = this.state;
-    state.itemId += 1;
     state.order.orderItemList.push(
       {
-        id: state.itemId, count: 1,
+        id: null, count: 1,
         product: item
       }
     )
@@ -65,6 +74,7 @@ export default class Order extends Component {
             <ItemList items={this.state.order.orderItemList}
                       allProducts={this.props.allProducts}
                       addItem={this.addItem}
+                      changeItemCount={this.changeItemCount}
                       editMode={this.state.editMode}
             />
 

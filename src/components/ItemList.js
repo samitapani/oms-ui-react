@@ -11,8 +11,13 @@ export default class OrderItemList extends Component {
   render() {
     const items = (
       <CardText>
-        {this.props.items.map((item) =>
-          <Item key={item.id} item={item} editMode={this.props.editMode}/>
+        {this.props.items.map((item, index) =>
+          <Item
+            key={index}
+            orderItemIndex={index}
+            item={item}
+            editMode={this.props.editMode}
+            changeItemCount={this.props.changeItemCount}/>
         )}
       </CardText>
     )
@@ -25,7 +30,8 @@ export default class OrderItemList extends Component {
             <Button
               className="col-sm-12 mb-1"
               onClick={(event) => this.props.addItem(event, item)}
-              key={item.id}>{item.name}
+              key={item.id}>
+              {item.name}
             </Button>
           )}
         </CardText>
