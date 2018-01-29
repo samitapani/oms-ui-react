@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import plus from '@fortawesome/fontawesome-free-solid/faPlus'
-import minus from '@fortawesome/fontawesome-free-solid/faMinus'
 import euro from '@fortawesome/fontawesome-free-solid/faEuroSign'
-import { InputGroup } from "reactstrap";
+import minus from '@fortawesome/fontawesome-free-solid/faMinus'
+import plus from '@fortawesome/fontawesome-free-solid/faPlus'
+import {InputGroup} from "reactstrap";
 
 
 export default class Item extends Component {
@@ -35,27 +35,42 @@ export default class Item extends Component {
   }
 
   render() {
+
+    let plusButton = ""
+    let minusButton = ""
+    if (this.props.editMode) {
+      minusButton = (
+        <div className="input-group-text" onClick={this.decCount}>
+          <FontAwesomeIcon icon={minus}/>
+        </div>
+      )
+
+      plusButton = (
+        <div className="input-group-text" onClick={this.incCount}>
+          <FontAwesomeIcon icon={plus}/>
+        </div>
+      )
+    }
+
     return (
       <div>
-        <span>{this.props.item.product.name}</span>
-        <InputGroup className="input-group mb-3">
-
-          <div className="input-group-text" onClick={this.decCount} >
-            <FontAwesomeIcon icon={minus}/>
-          </div>
-
+        <InputGroup className="mb-3">
+          <input type="text"
+                 className="form-control "
+                 value={this.props.item.product.name}
+                 disabled/>
+          {minusButton}
           <input type="number" className="form-control"
                  value={this.state.count}
-                 onChange={this.countChange}/>
-
-          <div className="input-group-text" onClick={this.incCount} >
-            <FontAwesomeIcon icon={plus}/>
-          </div>
-
+                 onChange={this.countChange}
+                 disabled={(this.props.editMode) ? "" : "disabled"}
+          />
+          {plusButton}
           <input type="text"
                  className="form-control "
                  value={this.props.item.product.price}
                  disabled/>
+
           <div className="input-group-append">
             <span className="input-group-text"><FontAwesomeIcon icon={euro}/></span>
           </div>

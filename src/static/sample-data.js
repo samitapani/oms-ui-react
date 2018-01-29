@@ -6,18 +6,6 @@ const sampleData = {
       "orderItemList": [ ],
       "creation": 1516956955941
     },
-    {
-      "id": 2,
-      "name": "More worms, for Fishing set.",
-      "orderItemList": [ ],
-      "creation": 1516956956026
-    },
-    {
-      "id": 3,
-      "name": "More reels.",
-      "orderItemList": [ ],
-      "creation": 1516956956047
-    },
   ],
   "last": false,
   "totalPages": 11,
