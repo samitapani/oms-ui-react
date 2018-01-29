@@ -5,11 +5,6 @@ export default class OrderItemList extends Component {
 
   constructor(props) {
     super(props)
-    this.addItem2 = this.addItem2.bind(this);
-  }
-
-  addItem2(event) {
-    this.props.addItem(event);
   }
 
   render() {

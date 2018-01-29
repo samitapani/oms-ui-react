@@ -8,7 +8,7 @@ export default class Order extends Component {
     this.state = {
       order: props.order,
       nextOrderId: props.nextOrderId,
-      nextOrderId: 1000
+      nextOrderId: 1000 // debug
     }
     this.addItem = this.addItem.bind(this);
 
