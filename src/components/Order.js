@@ -14,7 +14,7 @@ export default class Order extends Component {
 
   }
 
-  addItem(event) {
+  addItem(event, item) {
     console.log(event)
     const state = this.state;
     let nextOrderId = parseInt(this.state.nextOrderId)
@@ -22,24 +22,15 @@ export default class Order extends Component {
     state.order.orderItemList.push(
       {
         id: nextOrderId, count: 0,
-        product: {
-          "id": 2,
-          "name": "matoja",
-          "price": 29.9
-        }
+        product: item
       }
-
-
     )
 
     this.setState(state);
   }
 
   render() {
-
     const date = new Date(this.state.order.creation).toString()
-    //console.log(this.props.allProducts[2])
-
     return (
       <div className='col-sm-12 col-md-6 col-lg-6'>
         <div className='card p-2'>
@@ -47,7 +38,9 @@ export default class Order extends Component {
           <div className='card-block'>
             <h4 className='card-title'>{this.state.order.name}</h4>
 
-            <ItemList items={this.state.order.orderItemList} allProducts={this.props.allProducts} addItem={this.addItem}/>
+            <ItemList items={this.state.order.orderItemList}
+                      allProducts={this.props.allProducts}
+                      addItem={this.addItem}/>
 
             <div className='card-footer mt-2'>
               <small className='text-muted'> {date} </small>
