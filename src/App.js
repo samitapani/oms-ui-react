@@ -35,7 +35,7 @@ class App extends Component {
       <Container>
         <div className='m-3'>
           <Button className='btn active mr-3' onClick={(event) => this.addOrder(event)}>Add order</Button>
-          <Button className='btn active mr-3'>Save orders</Button>
+          <Button className='btn active mr-3' onClick={(event) => this.saveOrders(event)}>Save orders</Button>
         </div>
         <CardDeck>
           {orders}
@@ -44,8 +44,11 @@ class App extends Component {
     )
   }
 
-  addOrder(event) {
+  saveOrders(event) {
+    console.log(this.state.orders);
+  }
 
+  addOrder(event) {
     let state = this.state;
     state.id += 1;
     state.orders.push(
@@ -54,7 +57,6 @@ class App extends Component {
       }
     )
     this.setState(state)
-
   }
 
   async componentDidMount() {
