@@ -5,8 +5,22 @@ export default class OrderItemList extends Component {
 
   constructor(props) {
     super(props)
+    this.addItem2 = this.addItem2.bind(this);
   }
+
+  addItem2(event) {
+    this.props.addItem(event);
+  }
+
   render() {
+    const buttons = (
+      <div className="card-text">
+        {this.props.allProducts.map((item) =>
+          <button className="btn col-sm-12 mb-2" onClick={this.props.addItem} key={item.id}>{item.name} </button>
+        )}
+      </div>
+    )
+
     const items = (
       <div className="card-text">
         {this.props.items.map((item) =>
@@ -17,7 +31,8 @@ export default class OrderItemList extends Component {
     return (
       <div>
         {items}
-      </div>
+        {buttons}
+    </div>
     )
   }
 
