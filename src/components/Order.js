@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import ItemList from './ItemList.js'
 import logo from '../logo.svg';
-import {
-  Button, Card, CardBlock, CardFooter, CardImg, CardTitle, Input, Label, InputGroup
-} from 'reactstrap'
+import {Button, Card, CardBody, CardFooter, CardImg, CardTitle, Col, Input, InputGroup, Row} from 'reactstrap'
 import axios from 'axios'
 
 export default class Order extends Component {
@@ -27,11 +25,14 @@ export default class Order extends Component {
 
   changeEditMode(event) {
     const state = this.state;
+    // save
+    if (state.editMode) {
+      axios.post(
+        'http://localhost:8090/orders/save',
+        this.state.order
+      )
+    }
     state.editMode = !this.state.editMode
-    axios.post(
-      'http://localhost:8090/orders/save',
-      this.state.order
-    )
     this.setState(state)
   }
 
@@ -45,6 +46,7 @@ export default class Order extends Component {
     )
     this.setState(state);
   }
+
   onOrderNameChange(event) {
     const state = this.state;
     state.order.name = event.target.value
@@ -54,19 +56,27 @@ export default class Order extends Component {
   render() {
     const date = new Date(this.state.order.creation).toString()
     return (
-      <div className='col-sm-12 col-md-6 col-lg-6'>
+      <div className='col-sm-12 col-md-6 col-lg-4 mb-3'>
         <Card>
-          <Button onClick={this.changeEditMode}>{(this.state.editMode) ? "Save" : "Edit"}</Button>
-          <CardImg top src={logo} alt={this.state.order.name}/>
-          <CardBlock>
+          <Row>
+            <Col>
+              <Button className='col-sm-12'
+                      onClick={this.changeEditMode}
+                      color={(this.state.editMode) ? "success" : "info"}
+              >{(this.state.editMode) ? "Save" : "Edit"}
+              </Button>
+            </Col>
+          </Row>
+          <CardImg top src={logo} alt="img"/>
+          <CardBody>
             <CardTitle>
 
               <InputGroup>
-                <Input type="text" id="orderName" placeholder="Give name for the order"
-                     value={this.state.order.name}
-                     onChange={this.onOrderNameChange}
-                     disabled={(this.state.editMode) ? "" : "disabled"}
-              />
+                <Input placeholder="Give name for the order"
+                       value={this.state.order.name}
+                       onChange={this.onOrderNameChange}
+                       disabled={(this.state.editMode) ? "" : "disabled"}
+                />
               </InputGroup>
 
             </CardTitle>
@@ -82,7 +92,7 @@ export default class Order extends Component {
               {date}
             </CardFooter>
 
-          </CardBlock>
+          </CardBody>
         </Card>
       </div>
     )
