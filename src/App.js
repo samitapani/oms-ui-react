@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import Order from './components/Order.js'
 import axios from 'axios';
-import {Button, CardDeck, Container} from "reactstrap";
+import {Button, CardDeck, Col, Container, Row} from "reactstrap";
 
 //const orderData = require('./static/sample-data')
 
@@ -26,19 +26,20 @@ class App extends Component {
   }
 
   render() {
-    let orders = []
-    this.state.orders.forEach(x => orders.push(
-      <Order key={x.id} order={x} allProducts={this.state.allProducts}/>)
+    const orders = this.state.orders.map((x, index) =>
+      <Order key={x.id} orderIndex={index} order={x} allProducts={this.state.allProducts} onDeleteOrder={this.onDeleteOrder}/>
     )
 
     return (
       <Container>
-        <div className='m-3'>
-          <Button className='btn active mr-3' onClick={(event) => this.addOrder(event)}>Add order</Button>
-        </div>
         <CardDeck>
           {orders}
         </CardDeck>
+        <Row className='mt-3 mb-5'>
+          <Col className='mr-3 ml-3'>
+            <Button className='col-xs-12 col-md-12 col-lg-12' onClick={(event) => this.addOrder(event)}>Add order</Button>
+          </Col>
+        </Row>
       </Container>
     )
   }
@@ -48,7 +49,7 @@ class App extends Component {
     state.id += 1;
     state.orders.push(
       {
-        id: state.id, name: "New", creation: (new Date()).toUTCString(), orderItemList: []
+        id: state.id, name: "", creation: (new Date()).toUTCString(), orderItemList: []
       }
     )
     this.setState(state)
